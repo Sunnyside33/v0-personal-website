@@ -22,7 +22,7 @@ export function SocialLinks() {
   return (
     <div className="flex items-center gap-3">
       <SocialLink
-        href="https://tiktok.com/@sunnysid33"
+        href="https://tiktok.com/@sunny.sid33"
         label="TikTok"
         icon={
           <svg
@@ -36,7 +36,7 @@ export function SocialLinks() {
         }
       />
       <SocialLink
-        href="https://youtube.com/@sunnysid33"
+        href="https://www.youtube.com/@Suryatamaa00"
         label="YouTube"
         icon={
           <svg
@@ -50,7 +50,7 @@ export function SocialLinks() {
         }
       />
       <SocialLink
-        href="https://instagram.com/sunnysid33"
+        href="https://instagram.com/suryatamaa._"
         label="Instagram"
         icon={
           <svg
