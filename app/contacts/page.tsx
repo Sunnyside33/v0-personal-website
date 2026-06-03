@@ -49,9 +49,9 @@ export default function ContactsPage() {
 
       <div className="grid gap-4">
         <ContactLink
-          href="https://tiktok.com/@sunnysid33"
+          href="https://tiktok.com/@sunny.sid33"
           platform="TikTok"
-          username="@sunnysid33"
+          username="@sunny.sid33"
           icon={
             <svg
               className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
@@ -63,9 +63,9 @@ export default function ContactsPage() {
           }
         />
         <ContactLink
-          href="https://youtube.com/@sunnysid33"
+          href="https://youtube.com/@Suryatama00"
           platform="YouTube"
-          username="@sunnysid33"
+          username="@Suryatama00"
           icon={
             <svg
               className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
@@ -77,9 +77,9 @@ export default function ContactsPage() {
           }
         />
         <ContactLink
-          href="https://instagram.com/sunnysid33"
+          href="https://instagram.com/suryatamaa._"
           platform="Instagram"
-          username="@sunnysid33"
+          username="@suryatamaa._"
           icon={
             <svg
               className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
