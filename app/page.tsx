@@ -1,20 +1,6 @@
 import Link from "next/link"
+import image from "next/image"
 
-const EGG_SVG = (
-  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 mb-6">
-    <rect width="200" height="200" fill="#F5A623" rx="100" />
-    <ellipse cx="100" cy="115" rx="78" ry="58" fill="#FFFDF5" />
-    <ellipse cx="82" cy="108" rx="12" ry="10" fill="#e8e0d0" />
-    <ellipse cx="120" cy="122" rx="9" ry="7" fill="#e8e0d0" />
-    <circle cx="100" cy="100" r="38" fill="#F5A623" />
-    <circle cx="100" cy="98" r="36" fill="#E8922A" />
-    <circle cx="91" cy="93" r="5" fill="#2C1F0A" />
-    <circle cx="109" cy="93" r="5" fill="#2C1F0A" />
-    <circle cx="89.5" cy="91.5" r="1.8" fill="white" />
-    <circle cx="107.5" cy="91.5" r="1.8" fill="white" />
-    <path d="M92 106 Q100 113 108 106" stroke="#2C1F0A" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-  </svg>
-)
 
 const topics = [
   {
@@ -48,7 +34,13 @@ export default function HomePage() {
     <div className="max-w-[720px] mx-auto px-8">
       {/* HERO */}
       <section className="pt-18 pb-14">
-        {EGG_SVG}
+        <Image
+        src="/telor.png"
+        alt="Sunnysid33"
+        width={96}
+        height={96}
+        className="rounded-full object-cover mb-6"
+        />
         <p className="text-xs tracking-widest uppercase text-[#E8832A] mb-5 flex items-center gap-2">
           <span className="inline-block w-5 h-px bg-[#E8832A]" />
           Based in Surabaya, Indonesia
