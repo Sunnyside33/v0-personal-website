@@ -23,6 +23,7 @@ export interface Post {
 
 export interface PostWithContent extends Post {
   content: BlockObjectResponse[];
+}
 
 function slugify(str: string): string {
   return str
