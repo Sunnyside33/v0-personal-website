@@ -1,5 +1,5 @@
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
-const DATABASE_ID = "8aefbe72282e4290b1e98f5f21944386";
+const DATABASE_ID = "375b383bef80806f8a83000b92be11b5";
 const BASE = "https://api.notion.com/v1";
 
 const headers = {
