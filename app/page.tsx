@@ -35,7 +35,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="pt-18 pb-14">
         <Image
-        src="/telor.png"
+        src="/icon.png"
         alt="Sunnysid33"
         width={96}
         height={96}
