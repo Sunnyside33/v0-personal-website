@@ -23,7 +23,16 @@ export interface Post {
 
 export interface PostWithContent extends Post {
   content: BlockObjectResponse[];
+
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "") 
+    .replace(/\s+/g, "-")           
+    .replace(/-+/g, "-")           
+    .replace(/^-|-$/g, "");       
 }
+
 
 function getRichTextContent(richText: RichTextItemResponse[]): string {
   return richText.map((item) => item.plain_text).join("");
@@ -77,7 +86,7 @@ export async function getPosts(): Promise<Post[]> {
         tag: getPropertyValue(page, "Tag"),
         excerpt: getPropertyValue(page, "Excerpt"),
         date: getPropertyValue(page, "Publish Date"),
-        slug: getPropertyValue(page, "Slug"),
+        slug: slugify(getPropertyValue(page, "Title")),
       }));
   } catch (error) {
     console.error("Error fetching posts from Notion:", error);
@@ -122,7 +131,7 @@ export async function getPostsByCategory(category: string): Promise<Post[]> {
         tag: getPropertyValue(page, "Tag"),
         excerpt: getPropertyValue(page, "Excerpt"),
         date: getPropertyValue(page, "Publish Date"),
-        slug: getPropertyValue(page, "Slug"),
+        slug: slugify(getPropertyValue(page, "Title")),
       }));
   } catch (error) {
     console.error("Error fetching posts by category:", error);
@@ -137,17 +146,24 @@ export async function getPostBySlug(
     const response = await notion.databases.query({
       database_id: DATABASE_ID,
       filter: {
-        property: "slug",
-        rich_text: {
-          equals: slug,
+        property: "Status",
+        select: {
+          equals: "Published",
         },
       },
+      sorts: [
+        {
+          property: "Publish Date",
+          direction: "descending",
+        },
+      ],
     });
 
-    if (response.results.length === 0) return null;
+    const page = response.results
+      .filter((p): p is PageObjectResponse => "properties" in p)
+      .find((p) => slugify(getPropertyValue(p, "Title")) === slug);
 
-    const page = response.results[0];
-    if (!("properties" in page)) return null;
+    if (!page) return null;
 
     const blocksResponse = await notion.blocks.children.list({
       block_id: page.id,
@@ -160,7 +176,7 @@ export async function getPostBySlug(
       tag: getPropertyValue(page, "Tag"),
       excerpt: getPropertyValue(page, "Excerpt"),
       date: getPropertyValue(page, "Publish Date"),
-      slug: getPropertyValue(page, "Slug"),
+      slug: slug,
       content: blocksResponse.results.filter(
         (block): block is BlockObjectResponse => "type" in block
       ),
