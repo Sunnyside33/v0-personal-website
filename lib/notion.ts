@@ -54,9 +54,15 @@ export async function getPosts(): Promise<Post[]> {
   try {
     const response = await notion.databases.query({
       database_id: DATABASE_ID,
+      filter: {
+        property: "Status",
+        select:{
+          equals: "Published",
+        },
+      },
       sorts: [
         {
-          property: "date",
+          property: "Publish Date",
           direction: "descending",
         },
       ],
@@ -66,12 +72,12 @@ export async function getPosts(): Promise<Post[]> {
       .filter((page): page is PageObjectResponse => "properties" in page)
       .map((page) => ({
         id: page.id,
-        title: getPropertyValue(page, "title"),
-        category: getPropertyValue(page, "category"),
-        tag: getPropertyValue(page, "tag"),
-        excerpt: getPropertyValue(page, "excerpt"),
-        date: getPropertyValue(page, "date"),
-        slug: getPropertyValue(page, "slug"),
+        title: getPropertyValue(page, "Title"),
+        category: getPropertyValue(page, "Category"),
+        tag: getPropertyValue(page, "Tag"),
+        excerpt: getPropertyValue(page, "Excerpt"),
+        date: getPropertyValue(page, "Publish Date"),
+        slug: getPropertyValue(page, "Slug"),
       }));
   } catch (error) {
     console.error("Error fetching posts from Notion:", error);
@@ -84,14 +90,24 @@ export async function getPostsByCategory(category: string): Promise<Post[]> {
     const response = await notion.databases.query({
       database_id: DATABASE_ID,
       filter: {
-        property: "category",
+        and: [
+          {
+            property: "Status",
+            select: {
+              equals: "Published",
+            },
+          },
+          {
+        property: "Category",
         select: {
           equals: category,
+          },
         },
+       ],
       },
       sorts: [
         {
-          property: "date",
+          property: "Publish Date",
           direction: "descending",
         },
       ],
@@ -101,12 +117,12 @@ export async function getPostsByCategory(category: string): Promise<Post[]> {
       .filter((page): page is PageObjectResponse => "properties" in page)
       .map((page) => ({
         id: page.id,
-        title: getPropertyValue(page, "title"),
-        category: getPropertyValue(page, "category"),
-        tag: getPropertyValue(page, "tag"),
-        excerpt: getPropertyValue(page, "excerpt"),
-        date: getPropertyValue(page, "date"),
-        slug: getPropertyValue(page, "slug"),
+        title: getPropertyValue(page, "Title"),
+        category: getPropertyValue(page, "Category"),
+        tag: getPropertyValue(page, "Tag"),
+        excerpt: getPropertyValue(page, "Excerpt"),
+        date: getPropertyValue(page, "Publish Date"),
+        slug: getPropertyValue(page, "Slug"),
       }));
   } catch (error) {
     console.error("Error fetching posts by category:", error);
@@ -139,12 +155,12 @@ export async function getPostBySlug(
 
     return {
       id: page.id,
-      title: getPropertyValue(page, "title"),
-      category: getPropertyValue(page, "category"),
-      tag: getPropertyValue(page, "tag"),
-      excerpt: getPropertyValue(page, "excerpt"),
-      date: getPropertyValue(page, "date"),
-      slug: getPropertyValue(page, "slug"),
+      title: getPropertyValue(page, "Title"),
+      category: getPropertyValue(page, "Category"),
+      tag: getPropertyValue(page, "Tag"),
+      excerpt: getPropertyValue(page, "Excerpt"),
+      date: getPropertyValue(page, "Publish Date"),
+      slug: getPropertyValue(page, "Slug"),
       content: blocksResponse.results.filter(
         (block): block is BlockObjectResponse => "type" in block
       ),
