@@ -1,5 +1,5 @@
 import Link from "next/link"
-import image from "next/image"
+import Image from "next/image"
 
 
 const topics = [
